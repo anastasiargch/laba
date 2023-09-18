@@ -6,29 +6,23 @@ using namespace std;
 int main() {
     //0 < e < 10^-k
     double x, k, f;
-    cout << "Enter x, -1<x<1" << endl;
+    cout << "Enter x, (-1, 1)" << endl;
     cin >> x;
-    while ((x <= -1) || (x >= 1)) {
-        cin >> x;
-    }
     cout << "Enter k>1" << endl;
     cin >> k;
 
 
     f = 1 / sqrt(1 + x);
-    long double s = 1;
-    long double t = 1;
-    int i;
-        for (i = 1; i < 10; i = i + 2) {
-            if (i % 2 == 0) {
+    double sum = 1;
+    int i = 0;
+    double ai = 1;
+    do
+    {
+        ai*=(-x) * (2*i +1) / (double)(2*i+2);
+        sum+= ai;
+        i++;
+        cout << setprecision(k) << f << '=' << setprecision(k) << sum << endl;
+    } while ((fabs(sum - f) > pow(10.0, -k)));
 
-                t = x * x * t / (i * 2);
-                s += t;
-            } else {
-                t = -1 * x * x * t / (i * 2);
-                s += t;
-            }
-        }
-    cout << setprecision(k) << f << '=' << s << endl;
     return 0;
 }
