@@ -21,7 +21,7 @@ int main() {
         ai*=(-x) * (2*i +1) / (double)(2*i+2);
         sum+= ai;
         i++;
-        cout << setprecision(k) << f << '=' << setprecision(k) << sum << endl;
+        cout << setprecision(k-1) << f << '=' << setprecision(k-1) << sum << endl;
     } while ((fabs(sum - f) > pow(10.0, -k)));
 
     return 0;
