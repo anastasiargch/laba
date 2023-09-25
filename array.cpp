@@ -13,11 +13,12 @@ int main() {
     cout << "Enter right border = ";
     cin >> right;
 
-   int arr[n];
+   double arr[n];
+   int max_rand = 1000;
 
     cout << "Your array: ";
     for (int i = 0; i < n; i++) {
-        arr[i] = rand() % (right - left + 1) + left;
+        arr[i] = double(rand() % max_rand) / max_rand * (right - left) + left;
         cout << arr[i] << "; ";
     }
 
