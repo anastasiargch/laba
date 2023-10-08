@@ -1,79 +1,97 @@
 #include <iostream>
+#include <iomanip>
 #include <ctime>
 #include <vector>
 using namespace std;
 
 int main() {
     srand(time(NULL)); //генератор случайных чисел
-    int n, m, i, j;
+    int n, m, i, j, count = 0;
+    cout << "Enter the number of rows and columns:" << endl;
     cin >> n >> m;
     vector <vector <int> > a(n, vector <int>(m, 0));
-    for (size_t i = 0; i < n; i++) {
-        for (size_t j = 0; j < m; j++) {
-            if ((i + j) % 2 == 0)
-            {
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < m; j++) {
+            if ((i + j) % 2 == 0) {
                 a[i][j] = 1;
             }
             else {
-                a[i][j] = rand() % 10;
+                a[i][j] = rand() % 19 - 9;
             }
-            cout << a[i][j] << " ";
+            cout << a[i][j] << "\t";
         }
-        cout << endl;
+        cout << "\n";
     }
 
-
-    for (int i = 0; i < n; i++) {
-        bool fl = false;
-        int sum = 0;
-        for (int j = 0; j < m; j++) {
-            if (a[i][j] == 0) {
-                fl = true;
-                break;
-            }
-        }
-
-        if (fl == true) {
-            for (int j = 0; j < m; j++) {
-                sum += a[i][j];
-            } cout << "Sum of elements in the line "<< i << " with zero = " << sum << endl;
-        }
-
-        if (fl == false) {
-            for (int j = 0; j < m; j++) {
-                sum += a[i][j];
-            } cout << "There is no zero in the line" << endl;
-        }
-    }
-
-
-
-
-    int *min = new int[n]; //минимумы строк
-    int *max = new int[m]; //максимумы столбцов
-
-    //найти минимумы строк и максимумы столбцов
-    min[0] = a[0][0];
-    max[0] = a[0][0];
     for (i = 0; i < n; i++) {
+        int sum = 0;
+        for (j = 0; j < m; j++)
+            if (a[i][j] == 0) {
+                for (j = 0; j < m; j++) {
+                    sum += a[i][j];
+                }
+                cout << endl;
+                cout << "Sum of elements in the line "<< i + 1 << " with zero = " << sum << endl;
+            }
+    }
+
+    int min[i], max[j], maxofmin, minofmax;
+
+    for (i = 0; i < n; i++) {
+        min[i] = a[i][0];
         for (j = 0; j < m; j++) {
-            if (a[i][j] < min[i]) {
+            if (min[i] > a[i][j]) {
                 min[i] = a[i][j];
             }
-            if (a[i][j] > max[j]) {
+        }
+    }
+    cout << endl;
+    cout << "Minimum elements in rows:" << endl;
+    for (i = 0; i < n; i++)
+    cout << min[i] << endl;
+
+
+    for (j = 0; j < m; j++) {
+        max[j] = a[0][j];
+        for (i = 0; i < n; i++) {
+            if (max[j] < a[i][j]) {
                 max[j] = a[i][j];
             }
         }
     }
+    cout << endl;
+    cout << "Maximum elements in columns:" << endl;
+    for (j = 0; j < m; j++)
+        cout << max[j] << setw(3);
 
-    //проверить какие элементы являются седловой точкой
-    for (i = 0; i < n; i++) {
-        for (j = 0; j < m; j++) {
-            if ((a[i][j] == min[i]) && (a[i][j] == max[j])) {
-                cout << "Sedlovaya tochka: stroka " << i << ", stolbec " << j << endl;
+    maxofmin = min[0];
+    for (i = 0; i < n; i++)
+        if (maxofmin < min[i]) {
+            maxofmin = min[i];
+        }
+
+    minofmax = max[0];
+    for (i = 0; i < m; i++)
+        if (minofmax > max[i]) {
+            minofmax = max[i];
+        }
+
+    if (minofmax > maxofmin) {
+        cout << "\n\nSedlovih tochek net" << endl;
+    }
+
+    else {
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < m; j++) {
+                if (min[i] == maxofmin && max[j] == minofmax) {
+                    count++;
+                    cout << "\n\nSedlovaya tochka: stroka " << i + 1 << ", stolbec " << j + 1 << endl;
+                    cout << "The number of sedlovih tochek = " << count << endl;
+                }
             }
         }
     }
+
 
     return 0;
 }
