@@ -19,7 +19,7 @@ int main() {
     cout << "Your array: ";
     for (int i = 0; i < n; i++) {
         arr[i] = double(rand() % max_rand) / max_rand * (right - left) + left;
-        cout << arr[i] << "; ";
+        cout << arr[i] << "  ";
     }
 
     for (int i = 0; i < n; i++) {
@@ -30,8 +30,8 @@ int main() {
     cout << endl;
     cout << "Number of elements < P: " << count << endl; //1 punct
 
-    int i, index = -1;
-    for (i = n - 1; i > 0; i--)
+    int index = -1;
+    for (int i = n - 1; i > 0; i--)
         if (arr[i] < 0) {
             index = i;
             break;
@@ -40,22 +40,22 @@ int main() {
             cout << "There are no negative elements in the array" << endl;
         else {
              int sum = 0;
-
-        for (i = index + 1; i < n; i++)
+        for (int i = index + 1; i < n; i++)
             sum = sum + arr[i];
-        cout << "Sum of elements located after the negative one: " << sum << endl;
+        cout << "Sum an integer part of the elements located after the last negative one: " << sum << endl;
     }
 
     cout << "Converted array:" << endl;
-    for (i = 0; i < n; i++)
-        if ((arr[i] < P))
-        {
-            cout << arr[i] << "; ";
+    int _index=0;
+    for (int i = 0; i < n; i++) {
+        if ((arr[i] < P)) {
+            swap(arr[i], arr[_index]);
+            _index++;
         }
-    for(i = 0; i < n; i++)
-        if (arr[i] >= P)
-        {
-            cout << arr[i] << ("; ");
-        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << "; ";
+    }
     return 0;
 }
