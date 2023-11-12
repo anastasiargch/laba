@@ -1,32 +1,29 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
 using namespace std;
-
 
 int main() {
     ifstream input;
     ofstream output;
 
     input.open("input_file.txt");
-    output.open("output_file.txt");
-
     if (!input.is_open()) {
         cout << "Failed to open input file";
-        return 1;
+        return 0;
     }
-
+    
+    output.open("output_file.txt");
     if (!output.is_open()) {
         cout << "Failed to open output file";
-        return 1;
+        return 0;
     }
 
     string line;
     int count = 0;
-    int startLine = 0; // íîìåğ ñòğîêè íà÷àëà ãğóïïû ïîâòîğåíèé
-    int emptyLineCount = 0; // êîëè÷åñòâî ïîâòîğåíèé ïóñòûõ ñòğîê â ãğóïïå
-    int i = 0; // íîìåğ ãğóïïû
+    int startLine = 0; // Ğ½Ğ¾Ğ¼ĞµÑ€ ÑÑ‚Ñ€Ğ¾ĞºĞ¸ Ğ½Ğ°Ñ‡Ğ°Ğ»Ğ° Ğ³Ñ€ÑƒĞ¿Ğ¿Ñ‹ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€ĞµĞ½Ğ¸Ğ¹
+    int emptyLineCount = 0; // ĞºĞ¾Ğ»Ğ¸Ñ‡ĞµÑÑ‚Ğ²Ğ¾ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€ĞµĞ½Ğ¸Ğ¹ Ğ¿ÑƒÑÑ‚Ñ‹Ñ… ÑÑ‚Ñ€Ğ¾Ğº Ğ² Ğ³Ñ€ÑƒĞ¿Ğ¿Ğµ
+    int i = 0; // Ğ½Ğ¾Ğ¼ĞµÑ€ Ğ³Ñ€ÑƒĞ¿Ğ¿Ñ‹
 
     while (getline(input, line)) {
         if (line.empty() || line.find_first_not_of(' ') == string::npos) {
@@ -37,9 +34,9 @@ int main() {
         }
         else {
             if (emptyLineCount > 1) {
-                output << "Ãğóïïà " << ++i << ":" << endl;
-                output << "Êîëè÷åñâî ïîâòîğåíèé " << emptyLineCount << ":" << endl;
-                output << "Íîìåğ ñòğîêè íà÷àëà ãğóïïû: " << startLine + 1 << endl << endl;
+                output << "Ğ“Ñ€ÑƒĞ¿Ğ¿Ğ° " << ++i << ":" << endl;
+                output << "ĞšĞ¾Ğ»Ğ¸Ñ‡ĞµÑĞ²Ğ¾ Ğ¿Ğ¾Ğ²Ñ‚Ğ¾Ñ€ĞµĞ½Ğ¸Ğ¹ " << emptyLineCount << ":" << endl;
+                output << "ĞĞ¾Ğ¼ĞµÑ€ ÑÑ‚Ñ€Ğ¾ĞºĞ¸ Ğ½Ğ°Ñ‡Ğ°Ğ»Ğ° Ğ³Ñ€ÑƒĞ¿Ğ¿Ñ‹: " << startLine + 1 << endl << endl;
             }
             emptyLineCount = 0;
         }
