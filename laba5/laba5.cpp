@@ -20,8 +20,8 @@ int main() {
     }
 
     string line;
-    int count = 0;
-    int startLine = 0; // номер строки начала группы повторений
+    int count = 1; // счетчик строк
+    int startLine = 1; // номер строки начала группы повторений
     int emptyLineCount = 0; // количество повторений пустых строк в группе
     int i = 0; // номер группы
 
@@ -33,14 +33,21 @@ int main() {
             emptyLineCount++;
         }
         else {
-            if (emptyLineCount > 1) {
+            if (emptyLineCount > 0) {
                 output << "Группа " << ++i << ":" << endl;
-                output << "Количесво повторений " << emptyLineCount << ":" << endl;
-                output << "Номер строки начала группы: " << startLine + 1 << endl << endl;
+                output << "Количество повторений " << emptyLineCount << ":" << endl;
+                output << "Номер строки начала группы: " << startLine << endl << endl; 
+                emptyLineCount = 0;
             }
-            emptyLineCount = 0;
         }
         count++;
+    }
+
+    // добавляем последнюю группу
+    if (emptyLineCount > 0) {
+        output << "Группа " << ++i << ":" << endl;
+        output << "Количество повторений " << emptyLineCount << ":" << endl;
+        output << "Номер строки начала группы: " << startLine;
     }
 
     input.close();
